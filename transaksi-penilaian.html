@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SIAKAD - Transaksi Penilaian Mahasiswa</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page (DataTables) -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+   <style>
+    /* Header tabel abu-abu gelap */
+    .table-custom-header th {
+        background-color: #5a5c69;
+        color: #fff;
+        border-bottom: none;
+    }
+
+    /* Semua sel: satu baris, rata tengah secara vertikal */
+    #dataTable th,
+    #dataTable td {
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+
+    /* Kotak Kode TRX tidak boleh terpotong */
+    #dataTable td span.border {
+        display: inline-block;
+        font-size: .8rem;
+    }
+
+    /* Kolom angka, grade, dan status rata tengah */
+    #dataTable th:nth-child(n+5):nth-child(-n+10),
+    #dataTable td:nth-child(n+5):nth-child(-n+10) {
+        text-align: center;
+    }
+
+    /* Kolom Aksi: tombol Cetak, Edit & Hapus tetap sejajar */
+    #dataTable td:last-child {
+        text-align: center;
+    }
+</style>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="beranda.html">
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">RENTAL <sup>PS</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="beranda.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading MASTER DATA -->
+            <div class="sidebar-heading">
+                MASTER DATA
+            </div>
+
+            <!-- Nav Item - Master Data Prodi -->
+            <li class="nav-item">
+                <a class="nav-link" href="data-prodi.html">
+                    <i class="fas fa-fw fa-university"></i>
+                    <span>Master Unit PS</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Master Data Mahasiswa -->
+            
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading TRANSAKSI -->
+            <div class="sidebar-heading">
+                TRANSAKSI
+            </div>
+
+            <!-- Nav Item - Transaksi Penilaian (ACTIVE) -->
+            <li class="nav-item active">
+                <a class="nav-link" href="transaksi-penilaian.html">
+                    <i class="fas fa-fw fa-calculator"></i>
+                    <span>Transaksi Penilaian</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar Button Bulat) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                  
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">
+                            <i class="fas fa-history text-primary mr-2"></i> Manajemen Riwayat Transaksi Penyewaan
+                        </h1>
+                        <!-- Tombol Input Penilaian -->
+<a href="#" class="d-none d-sm-inline-block btn btn-primary shadow-sm"
+    data-toggle="modal" data-target="#modalPenilaian">
+    <i class="fas fa-plus fa-sm text-white-50 mr-2"></i> Sewa PS Baru
+</a>
+                    </div>
+
+                    <!-- DataTables Card -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Daftar Riwayat Transaksi Penyewaan</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead class="table-custom-header">
+                                        <tr>
+                                            <th>ID Tx</th>                                           
+                                            <th>Nama Penyewa</th>
+                                            <th>Unit PS</th>
+                                            <th>Tipe</th>
+                                            <th>Durasi</th>
+                                            <th>Total Bayar</th>
+                                            <th>Waktu Sewa</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- TRX-001 -->
+                                        <tr>
+                                            <td><span class="text-dark font-weight-bold border rounded px-2 py-1">#TX-3</span></td>  
+                                            <td class="font-weight-bold text-gray-800">Indra</td>                                          
+                                            <td class="font-weight-bold text-primary">PS5 - Room VIP 1</td>
+                                            <td><span class="badge badge-info px-2 py-2">PS5</span></td>
+                                            <td><span class=></span>1 Jam</span></td>
+                                            <td><span class="badge badge-success px-2 py-1">Rp 40.000</span></td>
+                                            <td>2026-10-06 19:54:26</td>
+                                        </tr>
+                                        <!-- TRX-002 -->
+                                        <tr>
+                                            <td><span class="text-dark font-weight-bold border rounded px-2 py-1">#TX-2</span></td>                                       
+                                            <td class="font-weight-bold text-gray-800">Andi WIjaya</td>                                           
+                                            <td class="font-weight-bold text-primary">PS4 - Room Reguler 1</td>
+                                            <td><span class="badge badge-info px-2 py-2">PS4</span></td>
+                                             <td><span class=></span>3 Jam</span></td>
+                                           <td><span class="badge badge-success px-2 py-1">Rp 36.000</span></td>
+                                           <td>2026-10-06 19:25:36</td>
+                                        </tr>
+                                        <!-- TRX-003 -->
+                                        <tr>
+                                            <td><span class="text-dark font-weight-bold border rounded px-2 py-1">#TX-1</span></td>
+                                            <td class="font-weight-bold text-gray-800">Budi Santoso</td>
+                                            <td class="font-weight-bold text-primary">PS5 - Room VIP 1</td>
+                                            <td><span class="badge badge-info px-2 py-2">PS5</span></td>
+                                             <td><span class=></span>2 Jam</span></td>
+                                            <td><span class="badge badge-success px-2 py-1">Rp 20.000</span></td>
+                                            <td>2026-10-06 19:25:36</td>  
+                                        </tr>
+                                      
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white mt-auto">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>SIAKAD &copy; Transaksi Penilaian Mahasiswa 2026</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Modal Form Input Transaksi Penilaian -->
+<div class="modal fade" id="modalPenilaian" tabindex="-1" role="dialog" aria-labelledby="modalPenilaianLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title font-weight-bold" id="modalPenilaianLabel">Buat Transaksi Sewa PS</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Tutup">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="formPenilaian">
+                <div class="modal-body">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="pilihunitps">Pilih Unit PS</label>
+                            <select class="custom-select" id="pilihunitps" required>
+                                <option value="">-- Pilih Unit PS --</option>
+                                <option data-nama="PS 5">PS 5</option>
+                                <option data-nama="PS 4">PS 4</option>
+                                <option data-nama="PS 3">PS 3</option>
+                               
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="namapenyewa">Nama Penyewa</label>
+                            <br>
+                            <input type="text" class="form-control" id="namapenyewa" placeholder="Contoh: Ahmad Rizki" required>   
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                            <label class="font-weight-bold" for="DurasiSewa">Durasi Sewa (Jam)</label>
+                            <br>
+                            <input type="text" class="form-control" id="DurasiSewa" placeholder="Contoh: 1">   
+                        </div>
+                    </div>
+                    <hr>
+
+                    <!-- Hasil estimasi -->
+                    <div class="bg-light rounded p-3">
+                        <div class="row text-center align-items-center">
+                            <div class="col-md-4">
+                                <div class="small text-gray-700 text-uppercase">Estimasi Total Harga</div>
+                                <div class="h2 font-weight-bold text-primary mb-0" id="estNilai">0</div>
+                            </div> 
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save mr-1"></i> Proses Sewa
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- End of Modal -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins (DataTables) -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts (Memanggil fungsi DataTables) -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+   <script>
+    var barisEdit = null; // null = mode tambah, berisi baris = mode edit
+
+    // Hitung nilai akhir, grade, dan status
+    function hitungNilai() {
+        var tugas = parseFloat($("#nilaiTugas").val()) || 0;
+        var uts = parseFloat($("#nilaiUts").val()) || 0;
+        var uas = parseFloat($("#nilaiUas").val()) || 0;
+        var akhir = Math.round((0.3 * tugas + 0.3 * uts + 0.4 * uas) * 10) / 10;
+
+        var grade = "E", badge = "badge-danger";
+        if (akhir >= 85)      { grade = "A";  badge = "badge-success"; }
+        else if (akhir >= 75) { grade = "B+"; badge = "badge-info"; }
+        else if (akhir >= 65) { grade = "B";  badge = "badge-info"; }
+        else if (akhir >= 55) { grade = "C";  badge = "badge-warning"; }
+        else if (akhir >= 40) { grade = "D";  badge = "badge-danger"; }
+
+        var lulus = akhir >= 55;
+
+        // Perbarui kotak estimasi
+        $("#estNilai").text(akhir);
+        $("#estGrade").attr("class", "badge px-3 py-2 " + badge).text(grade);
+        $("#estStatus")
+            .attr("class", "badge px-3 py-2 " + (lulus ? "badge-success" : "badge-danger"))
+            .text(lulus ? "LULUS" : "TIDAK LULUS");
+
+        return { akhir: akhir, grade: grade, badge: badge, lulus: lulus };
+    }
+
+    // Hitung ulang setiap kali nilai diubah
+    $("#nilaiTugas, #nilaiUts, #nilaiUas").on("input", hitungNilai);
+
+    // Tombol Edit: buka form dengan data baris terisi
+    $("#dataTable").on("click", ".btn-info", function (e) {
+        e.preventDefault();
+        barisEdit = $(this).closest("tr");
+        var kolom = barisEdit.find("td");
+
+        $("#pilihMahasiswa").val($(kolom[1]).text().trim());
+        $("#pilihMatkul").val($(kolom[3]).text().trim());
+        $("#nilaiTugas").val($(kolom[4]).text().trim());
+        $("#nilaiUts").val($(kolom[5]).text().trim());
+        $("#nilaiUas").val($(kolom[6]).text().trim());
+
+        hitungNilai();
+        $("#modalPenilaian").modal("show");
+    });
+
+    // Tombol Hapus: hanya notifikasi, data tidak dihapus
+    $("#dataTable").on("click", ".btn-danger", function (e) {
+        e.preventDefault();
+        alert("Data berhasil dihapus!");
+    });
+
+    // Simpan transaksi (tambah baru / update)
+    $("#formPenilaian").on("submit", function (e) {
+        e.preventDefault();
+
+        var table = $("#dataTable").DataTable();
+        var hasil = hitungNilai();
+        var opt = $("#pilihMahasiswa option:selected");
+
+        var nimTxt = opt.val();
+        var namaHtml = '<span class="font-weight-bold text-gray-800">' + opt.data("nama") + '</span>';
+        var matkul = $("#pilihMatkul").val();
+        var tugas = $("#nilaiTugas").val();
+        var uts = $("#nilaiUts").val();
+        var uas = $("#nilaiUas").val();
+        var akhirHtml = '<span class="font-weight-bold text-primary">' + hasil.akhir + '</span>';
+        var gradeHtml = '<span class="badge ' + hasil.badge + ' px-2 py-2">' + hasil.grade + '</span>';
+        var statusHtml = '<span class="badge ' + (hasil.lulus ? "badge-success" : "badge-danger") + ' px-2 py-1">' +
+                (hasil.lulus ? "Lulus" : "Tidak Lulus") + '</span>';
+
+        if (barisEdit) {
+            // Mode edit: Kode TRX dan Aksi tetap
+            var d = table.row(barisEdit).data();
+            table.row(barisEdit).data([
+                d[0], nimTxt, namaHtml, matkul, tugas, uts, uas, akhirHtml, gradeHtml, statusHtml, d[10]
+            ]).draw(false);
+            alert("Data berhasil diperbarui!");
+        } else {
+            // Mode tambah
+            var kode = "TRX-" + ("00" + (table.rows().count() + 1)).slice(-3);
+            table.row.add([
+                '<span class="text-dark font-weight-bold border rounded px-2 py-1">' + kode + '</span>',
+                nimTxt, namaHtml, matkul, tugas, uts, uas, akhirHtml, gradeHtml, statusHtml,
+                '<div class="text-center">' +
+                    '<a href="#" class="btn btn-secondary btn-sm" title="Cetak"><i class="fas fa-print"></i></a> ' +
+                    '<a href="#" class="btn btn-info btn-sm" title="Edit Data"><i class="fas fa-edit"></i></a> ' +
+                    '<a href="#" class="btn btn-danger btn-sm" title="Hapus Data"><i class="fas fa-trash"></i></a>' +
+                '</div>'
+            ]).draw(false);
+        }
+
+        $("#modalPenilaian").modal("hide");
+    });
+
+    // Kembalikan form ke kondisi awal dan mode tambah setiap modal ditutup
+    $("#modalPenilaian").on("hidden.bs.modal", function () {
+        $("#formPenilaian")[0].reset();
+        barisEdit = null;
+        hitungNilai();
+    });
+</script>
+
+</body>
+
+</html>

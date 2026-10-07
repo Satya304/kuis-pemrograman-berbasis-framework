@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SIAKAD - Halaman Login</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <style>
+        /* Panel kiri (branding) */
+        .login-brand {
+            background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 2.5rem;
+            min-height: 100%;
+        }
+
+        .login-brand .brand-icon {
+            font-size: 5rem;
+            color: rgba(255, 255, 255, .55);
+            margin-bottom: 1.25rem;
+        }
+
+        .login-brand h2 {
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: .75rem;
+        }
+
+        .login-brand p.tagline {
+            color: rgba(255, 255, 255, .7);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .portal-box {
+            background: #f8f9fc;
+            border-radius: .35rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .75rem;
+            padding: 1.25rem 1.5rem;
+            width: 100%;
+            max-width: 410px;
+            color: #4e73df;
+            font-weight: 700;
+            font-size: .9rem;
+        }
+
+        .portal-box i {
+            font-size: 3.5rem;
+            opacity: .85;
+        }
+
+        /* Panel kanan (form) */
+        .login-form-title {
+            font-weight: 700;
+            color: #1f2230;
+        }
+
+        .login-form label {
+            font-weight: 600;
+            font-size: .9rem;
+            color: #3a3b45;
+            margin-bottom: .4rem;
+        }
+
+        .login-form .input-group-text {
+            background-color: #f8f9fc;
+            color: #4e73df;
+            border-right: 0;
+        }
+
+        .login-form .form-control,
+        .login-form .custom-select {
+            height: calc(1.5em + 1.5rem + 2px);
+        }
+
+        .login-form .input-group .form-control {
+            border-left: 0;
+        }
+
+        .btn-login {
+            border-radius: 10rem;
+            padding: .8rem 1rem;
+            font-weight: 700;
+            font-size: .9rem;
+        }
+
+        .demo-box {
+            background: #f8f9fc;
+            border-radius: .35rem;
+            padding: 1rem;
+            text-align: center;
+            font-size: .85rem;
+            color: #6e707e;
+        }
+
+        .demo-box code {
+            color: #e83e8c;
+        }
+
+        @media (max-width: 991.98px) {
+            .login-brand {
+                display: none;
+            }
+        }
+    </style>
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="row no-gutters">
+
+                            <!-- Panel kiri: branding -->
+                            <div class="col-lg-6">
+                                <div class="login-brand">
+                                    <i class="fas fa-graduation-cap brand-icon"></i>
+                                    <h2>SIAKAD KAMPUS</h2>
+                                    <p class="tagline">Sistem Informasi Akademik &amp; Data Penilaian Mahasiswa Terpadu</p>
+                                    <div class="portal-box">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Portal Akademik Mahasiswa &amp; Dosen</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Panel kanan: form login -->
+                            <div class="col-lg-6">
+                                <div class="p-5 login-form">
+                                    <div class="text-center mb-4">
+                                        <h1 class="h3 login-form-title mb-2">Selamat Datang</h1>
+                                        <p class="text-gray-600 small mb-0">Silakan masuk menggunakan akun Anda</p>
+                                    </div>
+
+                                    <div id="loginAlert" class="alert alert-danger small d-none" role="alert">
+                                        Username atau kata sandi salah.
+                                    </div>
+
+                                    <form id="loginForm">
+                                        <div class="form-group">
+                                            <label for="username">NIP / NIM / Username</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" id="username"
+                                                    value="admin_dosen" placeholder="Masukkan NIP / NIM / Username"
+                                                    required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="password">Kata Sandi</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                                </div>
+                                                <input type="password" class="form-control" id="password"
+                                                    value="password123" placeholder="Masukkan kata sandi" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="role">Peran Sistem (Role)</label>
+                                            <select class="custom-select" id="role">
+                                                <option value="dosen" selected>Dosen / Pengajar</option>
+                                                <option value="mahasiswa">Mahasiswa</option>
+                                                <option value="admin">Administrator</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="custom-control custom-checkbox small">
+                                                <input type="checkbox" class="custom-control-input" id="rememberMe"
+                                                    checked>
+                                                <label class="custom-control-label font-weight-normal"
+                                                    for="rememberMe">Ingat Saya di Perangkat Ini</label>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary btn-block btn-login">
+                                            <i class="fas fa-sign-in-alt mr-2"></i> Masuk ke Sistem
+                                        </button>
+                                    </form>
+
+                                    <hr>
+
+                                    <div class="demo-box">
+                                        <div class="mb-1"><i class="fas fa-info-circle text-info mr-1"></i> Demo Login:</div>
+                                        <div>
+                                            <strong>Username:</strong> <code>admin_dosen</code> |
+                                            <strong>Password:</strong> <code>password123</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Validasi login demo -->
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            var user = document.getElementById("username").value.trim();
+            var pass = document.getElementById("password").value;
+            var alertBox = document.getElementById("loginAlert");
+
+            if (user === "admin_dosen" && pass === "password123") {
+                window.location.href = "beranda.html";
+            } else {
+                alertBox.classList.remove("d-none");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
